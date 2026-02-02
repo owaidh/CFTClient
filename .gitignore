@@ -1,0 +1,31 @@
+# .NET
+bin/
+obj/
+publish/
+publish-standalone/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# NuGet
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Secrets - don't commit real API keys!
+appsettings.Production.json
