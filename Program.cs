@@ -52,17 +52,32 @@ if (useTestMode)
         
         if (!context.Products.Any())
         {
+            var prices = new List<ProductPrice>
+            {
+                new ProductPrice { PriceProductId = 1, PriceProduct = 120.00m },
+                new ProductPrice { PriceProductId = 2, PriceProduct = 60.00m },
+                new ProductPrice { PriceProductId = 3, PriceProduct = 250.00m },
+                new ProductPrice { PriceProductId = 4, PriceProduct = 200.00m },
+                new ProductPrice { PriceProductId = 5, PriceProduct = 50.00m },
+                new ProductPrice { PriceProductId = 6, PriceProduct = 160.00m },
+                new ProductPrice { PriceProductId = 7, PriceProduct = 600.00m },
+                new ProductPrice { PriceProductId = 8, PriceProduct = 90.00m },
+                new ProductPrice { PriceProductId = 9, PriceProduct = 700.00m },
+                new ProductPrice { PriceProductId = 10, PriceProduct = 450.00m }
+            };
+            context.ProductPrices.AddRange(prices);
+
             context.Products.AddRange(
-                new Product { ProductId = 1, ProductCode = "FLT-001", ProductName = "فلتر هواء تويوتا كامري", Quantity = 25, PriceProduct = 85.00m },
-                new Product { ProductId = 2, ProductCode = "FLT-002", ProductName = "فلتر زيت هيونداي النترا", Quantity = 40, PriceProduct = 45.00m },
-                new Product { ProductId = 3, ProductCode = "BRK-001", ProductName = "طقم فحمات فرامل أمامية نيسان", Quantity = 15, PriceProduct = 180.00m },
-                new Product { ProductId = 4, ProductCode = "BRK-002", ProductName = "طقم فحمات فرامل خلفية تويوتا", Quantity = 12, PriceProduct = 150.00m },
-                new Product { ProductId = 5, ProductCode = "SPK-001", ProductName = "شمعات إشعال NGK", Quantity = 100, PriceProduct = 35.00m },
-                new Product { ProductId = 6, ProductCode = "OIL-001", ProductName = "زيت محرك موبيل 1 5W-30", Quantity = 50, PriceProduct = 120.00m },
-                new Product { ProductId = 7, ProductCode = "BAT-001", ProductName = "بطارية AC Delco 70 أمبير", Quantity = 8, PriceProduct = 450.00m },
-                new Product { ProductId = 8, ProductCode = "BLT-001", ProductName = "سير مروحة كيا سيراتو", Quantity = 20, PriceProduct = 65.00m },
-                new Product { ProductId = 9, ProductCode = "RAD-001", ProductName = "رديتر مياه هوندا أكورد", Quantity = 5, PriceProduct = 550.00m },
-                new Product { ProductId = 10, ProductCode = "SUS-001", ProductName = "مساعد أمامي مازدا 3", Quantity = 0, PriceProduct = 320.00m }
+                new Product { ProductId = 1, ProductCode = "FLT-001", ProductName1 = "فلتر هواء تويوتا كامري", ProductName2 = "Toyota Camry Air Filter", CostValue = 85.00d },
+                new Product { ProductId = 2, ProductCode = "FLT-002", ProductName1 = "فلتر زيت هيونداي النترا", ProductName2 = "Hyundai Elantra Oil Filter", CostValue = 45.00d },
+                new Product { ProductId = 3, ProductCode = "BRK-001", ProductName1 = "طقم فحمات فرامل أمامية نيسان", ProductName2 = "Nissan Front Brake Pads", CostValue = 180.00d },
+                new Product { ProductId = 4, ProductCode = "BRK-002", ProductName1 = "طقم فحمات فرامل خلفية تويوتا", ProductName2 = "Toyota Rear Brake Pads", CostValue = 150.00d },
+                new Product { ProductId = 5, ProductCode = "SPK-001", ProductName1 = "شمعات إشعال NGK", ProductName2 = "NGK Spark Plugs", CostValue = 35.00d },
+                new Product { ProductId = 6, ProductCode = "OIL-001", ProductName1 = "زيت محرك موبيل 1 5W-30", ProductName2 = "Mobil 1 5W-30 Motor Oil", CostValue = 120.00d },
+                new Product { ProductId = 7, ProductCode = "BAT-001", ProductName1 = "بطارية AC Delco 70 أمبير", ProductName2 = "AC Delco 70 Ah Battery", CostValue = 450.00d },
+                new Product { ProductId = 8, ProductCode = "BLT-001", ProductName1 = "سير مروحة كيا سيراتو", ProductName2 = "Kia Cerato Fan Belt", CostValue = 65.00d },
+                new Product { ProductId = 9, ProductCode = "RAD-001", ProductName1 = "رديتر مياه هوندا أكورد", ProductName2 = "Honda Accord Radiator", CostValue = 550.00d },
+                new Product { ProductId = 10, ProductCode = "SUS-001", ProductName1 = "مساعد أمامي مازدا 3", ProductName2 = "Mazda 3 Front Shock Absorber", CostValue = 320.00d }
             );
             context.SaveChanges();
             Console.WriteLine("✅ تم إضافة 10 منتجات تجريبية");

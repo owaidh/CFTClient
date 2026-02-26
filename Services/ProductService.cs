@@ -16,33 +16,71 @@ public class ProductService
     /// <summary>
     /// Get all products
     /// </summary>
-    public async Task<List<Product>> GetAllProductsAsync()
+    public async Task<List<ProductDto>> GetAllProductsAsync()
     {
-        return await _context.Products.ToListAsync();
+        var query = from p in _context.Products
+                    join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
+                    from ppResult in ppJoin.DefaultIfEmpty()
+                    select new ProductDto
+                    {
+                        ProductId = p.ProductId,
+                        ProductCode = p.ProductCode,
+                        ProductName1 = p.ProductName1,
+                        ProductName2 = p.ProductName2,
+                        CostValue = p.CostValue,
+                        SellingPrice = (decimal?)ppResult.PriceProduct
+                    };
+
+        return await query.ToListAsync();
     }
 
     /// <summary>
     /// Get product by exact code
     /// </summary>
-    public async Task<Product?> GetProductByCodeAsync(string code)
+    public async Task<ProductDto?> GetProductByCodeAsync(string code)
     {
-        return await _context.Products
-            .FirstOrDefaultAsync(p => p.ProductCode == code);
+        var query = from p in _context.Products.Where(p => p.ProductCode == code)
+                    join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
+                    from ppResult in ppJoin.DefaultIfEmpty()
+                    select new ProductDto
+                    {
+                        ProductId = p.ProductId,
+                        ProductCode = p.ProductCode,
+                        ProductName1 = p.ProductName1,
+                        ProductName2 = p.ProductName2,
+                        CostValue = p.CostValue,
+                        SellingPrice = (decimal?)ppResult.PriceProduct
+                    };
+
+        return await query.FirstOrDefaultAsync();
     }
 
     /// <summary>
     /// Search products by code or name (partial match)
     /// </summary>
-    public async Task<List<Product>> SearchProductsAsync(string query)
+    public async Task<List<ProductDto>> SearchProductsAsync(string queryText)
     {
-        if (string.IsNullOrWhiteSpace(query))
-            return new List<Product>();
+        if (string.IsNullOrWhiteSpace(queryText))
+            return new List<ProductDto>();
 
-        var lowerQuery = query.ToLower();
+        var lowerQuery = queryText.ToLower();
         
-        return await _context.Products
-            .Where(p => p.ProductCode.ToLower().Contains(lowerQuery) 
-                     || p.ProductName.ToLower().Contains(lowerQuery))
-            .ToListAsync();
+        var query = from p in _context.Products
+                    where (p.ProductCode != null && p.ProductCode.ToLower().Contains(lowerQuery)) 
+                       || (p.ProductName1 != null && p.ProductName1.ToLower().Contains(lowerQuery))
+                       || (p.ProductName2 != null && p.ProductName2.ToLower().Contains(lowerQuery))
+                    join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
+                    from ppResult in ppJoin.DefaultIfEmpty()
+                    select new ProductDto
+                    {
+                        ProductId = p.ProductId,
+                        ProductCode = p.ProductCode,
+                        ProductName1 = p.ProductName1,
+                        ProductName2 = p.ProductName2,
+                        CostValue = p.CostValue,
+                        SellingPrice = (decimal?)ppResult.PriceProduct
+                    };
+
+        return await query.ToListAsync();
     }
 }

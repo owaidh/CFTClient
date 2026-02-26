@@ -29,3 +29,5 @@ Thumbs.db
 
 # Secrets - don't commit real API keys!
 appsettings.Production.json
+build.txt
+

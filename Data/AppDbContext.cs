@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
+    public DbSet<ProductPrice> ProductPrices { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,7 +18,7 @@ public class AppDbContext : DbContext
         
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.ToTable("products");
+            entity.ToTable("Product_Data");
             entity.HasKey(e => e.ProductId);
         });
     }

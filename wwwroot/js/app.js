@@ -6,7 +6,7 @@ const API_BASE = '/api';
 function toggleApiKeyVisibility() {
     const apiKeyInput = document.getElementById('apiKey');
     const eyeIcon = document.getElementById('eyeIcon');
-    
+
     if (apiKeyInput.type === 'password') {
         apiKeyInput.type = 'text';
         eyeIcon.classList.remove('bi-eye');
@@ -50,24 +50,13 @@ async function apiRequest(endpoint) {
             'X-API-Key': getApiKey()
         }
     });
-    
+
     if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error || 'حدث خطأ في الاتصال');
     }
-    
-    return await response.json();
-}
 
-// Get stock status badge
-function getStockBadge(quantity) {
-    if (quantity === 0) {
-        return '<span class="badge badge-out-of-stock quantity-badge">نفذ المخزون</span>';
-    } else if (quantity < 5) {
-        return '<span class="badge badge-low-stock quantity-badge">كمية قليلة</span>';
-    } else {
-        return '<span class="badge badge-in-stock quantity-badge">متوفر</span>';
-    }
+    return await response.json();
 }
 
 // Format price
@@ -82,9 +71,9 @@ function formatPrice(price) {
 function renderProducts(products) {
     const tbody = document.getElementById('productsTable');
     const countBadge = document.getElementById('resultCount');
-    
+
     countBadge.textContent = `${products.length} منتج`;
-    
+
     if (products.length === 0) {
         tbody.innerHTML = `
             <tr>
@@ -96,15 +85,15 @@ function renderProducts(products) {
         `;
         return;
     }
-    
+
     tbody.innerHTML = products.map((product, index) => `
         <tr>
             <td>${index + 1}</td>
             <td><code>${product.productCode}</code></td>
-            <td>${product.productName}</td>
-            <td class="price">${formatPrice(product.priceProduct)}</td>
-            <td><strong>${product.quantity}</strong></td>
-            <td>${getStockBadge(product.quantity)}</td>
+            <td>${product.productName1 || ''}</td>
+            <td dir="ltr" class="text-muted">${product.productName2 || ''}</td>
+            <td class="price">${formatPrice(product.costValue)}</td>
+            <td class="price text-success">${product.sellingPrice != null ? formatPrice(product.sellingPrice) : 'غير متوفر'}</td>
         </tr>
     `).join('');
 }
@@ -112,14 +101,14 @@ function renderProducts(products) {
 // Search products
 async function searchProducts() {
     const query = document.getElementById('searchQuery').value.trim();
-    
+
     if (!query) {
         showError('الرجاء إدخال كلمة للبحث');
         return;
     }
-    
+
     showLoading();
-    
+
     try {
         const result = await apiRequest(`/products/search?q=${encodeURIComponent(query)}`);
         renderProducts(result.data);
@@ -134,7 +123,7 @@ async function searchProducts() {
 // Get all products
 async function getAllProducts() {
     showLoading();
-    
+
     try {
         const result = await apiRequest('/products');
         renderProducts(result.data);
@@ -147,10 +136,10 @@ async function getAllProducts() {
 }
 
 // Search on Enter key
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('searchQuery');
-    
-    searchInput.addEventListener('keypress', function(e) {
+
+    searchInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             searchProducts();
         }

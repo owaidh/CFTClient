@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -33,9 +35,8 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-9">
-                        <input type="password" id="apiKey" class="form-control" 
-                               placeholder="أدخل API Key هنا..."
-                               value="CFT-2024-SECURE-API-KEY-CHANGE-ME">
+                        <input type="password" id="apiKey" class="form-control" placeholder="أدخل API Key هنا..."
+                            value="CFT-2024-SECURE-API-KEY-CHANGE-ME">
                     </div>
                     <div class="col-md-3">
                         <button class="btn btn-outline-secondary w-100" onclick="toggleApiKeyVisibility()">
@@ -56,8 +57,8 @@
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-md-8">
-                        <input type="text" id="searchQuery" class="form-control form-control-lg" 
-                               placeholder="ابحث برقم القطعة أو اسم المنتج...">
+                        <input type="text" id="searchQuery" class="form-control form-control-lg"
+                            placeholder="ابحث برقم القطعة أو الاسم...">
                     </div>
                     <div class="col-md-4">
                         <div class="btn-group w-100" role="group">
@@ -105,10 +106,10 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">رقم القطعة</th>
-                                <th scope="col">اسم المنتج</th>
-                                <th scope="col">السعر</th>
-                                <th scope="col">الكمية المتبقية</th>
-                                <th scope="col">الحالة</th>
+                                <th scope="col">الاسم 1</th>
+                                <th scope="col">الاسم 2</th>
+                                <th scope="col">السعر (التكلفة)</th>
+                                <th scope="col">السعر (البيع)</th>
                             </tr>
                         </thead>
                         <tbody id="productsTable">
@@ -171,11 +172,12 @@
     <!-- Footer -->
     <footer class="bg-dark text-white py-3 mt-4">
         <div class="container text-center">
-            <small>CFTClient - Products Wrapper API &copy; 2024</small>
+            <small>CFTClient - Products Wrapper API &copy; 2026</small>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/app.js"></script>
 </body>
+
 </html>

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CFTClient.Models;
 
-[Table("products")]
+[Table("Product_Data")]
 public class Product
 {
     [Key]
@@ -11,14 +11,14 @@ public class Product
     public int ProductId { get; set; }
 
     [Column("product_code")]
-    public string ProductCode { get; set; } = string.Empty;
+    public string? ProductCode { get; set; }
 
-    [Column("product_name")]
-    public string ProductName { get; set; } = string.Empty;
+    [Column("product_name_1")]
+    public string? ProductName1 { get; set; }
 
-    [Column("Quantity")]
-    public int Quantity { get; set; }
+    [Column("product_name_2")]
+    public string? ProductName2 { get; set; }
 
-    [Column("price_product")]
-    public decimal PriceProduct { get; set; }
+    [Column("cost_value")]
+    public double CostValue { get; set; }
 }
