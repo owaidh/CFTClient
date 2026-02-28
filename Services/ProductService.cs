@@ -21,6 +21,8 @@ public class ProductService
         var query = from p in _context.Products
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
+                    join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
+                    from dsResult in dsJoin.DefaultIfEmpty()
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -28,7 +30,8 @@ public class ProductService
                         ProductName1 = p.ProductName1,
                         ProductName2 = p.ProductName2,
                         CostValue = p.CostValue,
-                        SellingPrice = (decimal?)ppResult.PriceProduct
+                        SellingPrice = (decimal?)ppResult.PriceProduct,
+                        Quantity = (double?)dsResult.Quantity
                     };
 
         return await query.ToListAsync();
@@ -42,6 +45,8 @@ public class ProductService
         var query = from p in _context.Products.Where(p => p.ProductCode == code)
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
+                    join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
+                    from dsResult in dsJoin.DefaultIfEmpty()
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -49,7 +54,8 @@ public class ProductService
                         ProductName1 = p.ProductName1,
                         ProductName2 = p.ProductName2,
                         CostValue = p.CostValue,
-                        SellingPrice = (decimal?)ppResult.PriceProduct
+                        SellingPrice = (decimal?)ppResult.PriceProduct,
+                        Quantity = (double?)dsResult.Quantity
                     };
 
         return await query.FirstOrDefaultAsync();
@@ -71,6 +77,8 @@ public class ProductService
                        || (p.ProductName2 != null && p.ProductName2.ToLower().Contains(lowerQuery))
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
+                    join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
+                    from dsResult in dsJoin.DefaultIfEmpty()
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -78,7 +86,8 @@ public class ProductService
                         ProductName1 = p.ProductName1,
                         ProductName2 = p.ProductName2,
                         CostValue = p.CostValue,
-                        SellingPrice = (decimal?)ppResult.PriceProduct
+                        SellingPrice = (decimal?)ppResult.PriceProduct,
+                        Quantity = (double?)dsResult.Quantity
                     };
 
         return await query.ToListAsync();

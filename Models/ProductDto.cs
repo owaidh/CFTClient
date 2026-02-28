@@ -8,4 +8,5 @@ public class ProductDto
     public string? ProductName2 { get; set; }
     public double CostValue { get; set; }
     public decimal? SellingPrice { get; set; }
+    public double? Quantity { get; set; }
 }

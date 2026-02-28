@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductPrice> ProductPrices { get; set; }
+    public DbSet<DataStock> DataStocks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,5 +22,7 @@ public class AppDbContext : DbContext
             entity.ToTable("Product_Data");
             entity.HasKey(e => e.ProductId);
         });
+
+        modelBuilder.Entity<DataStock>().HasNoKey();
     }
 }

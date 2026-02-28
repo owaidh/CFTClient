@@ -77,7 +77,7 @@ function renderProducts(products) {
     if (products.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="6" class="text-center text-muted py-5">
+                <td colspan="7" class="text-center text-muted py-5">
                     <i class="bi bi-search display-4 d-block mb-2"></i>
                     لم يتم العثور على منتجات
                 </td>
@@ -94,6 +94,11 @@ function renderProducts(products) {
             <td dir="ltr" class="text-muted">${product.productName2 || ''}</td>
             <td class="price">${formatPrice(product.costValue)}</td>
             <td class="price text-success">${product.sellingPrice != null ? formatPrice(product.sellingPrice) : 'غير متوفر'}</td>
+            <td>
+                ${product.quantity != null
+            ? `<span class="badge ${product.quantity > 0 ? 'bg-success' : 'bg-danger'}">${product.quantity}</span>`
+            : '<span class="badge bg-secondary">غير معروف</span>'}
+            </td>
         </tr>
     `).join('');
 }

@@ -67,6 +67,21 @@ if (useTestMode)
             };
             context.ProductPrices.AddRange(prices);
 
+            var stocks = new List<DataStock>
+            {
+                new DataStock { IdProduct = 1, Quantity = 50d },
+                new DataStock { IdProduct = 2, Quantity = 100d },
+                new DataStock { IdProduct = 3, Quantity = 20d },
+                new DataStock { IdProduct = 4, Quantity = 15d },
+                new DataStock { IdProduct = 5, Quantity = 200d },
+                new DataStock { IdProduct = 6, Quantity = 35d },
+                new DataStock { IdProduct = 7, Quantity = 0d },    // Out of stock example
+                new DataStock { IdProduct = 8, Quantity = 40d },
+                new DataStock { IdProduct = 9, Quantity = 5d },
+                new DataStock { IdProduct = 10, Quantity = 12d }
+            };
+            context.DataStocks.AddRange(stocks);
+
             context.Products.AddRange(
                 new Product { ProductId = 1, ProductCode = "FLT-001", ProductName1 = "فلتر هواء تويوتا كامري", ProductName2 = "Toyota Camry Air Filter", CostValue = 85.00d },
                 new Product { ProductId = 2, ProductCode = "FLT-002", ProductName1 = "فلتر زيت هيونداي النترا", ProductName2 = "Hyundai Elantra Oil Filter", CostValue = 45.00d },
