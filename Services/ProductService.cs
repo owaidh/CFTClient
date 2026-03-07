@@ -22,7 +22,6 @@ public class ProductService
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
-                    from dsResult in dsJoin.DefaultIfEmpty()
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -31,7 +30,7 @@ public class ProductService
                         ProductName2 = p.ProductName2,
                         CostValue = p.CostValue,
                         SellingPrice = (decimal?)ppResult.PriceProduct,
-                        Quantity = (double?)dsResult.Quantity
+                        Quantity = (double?)dsJoin.Sum(x => x.Quantity)
                     };
 
         return await query.ToListAsync();
@@ -46,7 +45,6 @@ public class ProductService
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
-                    from dsResult in dsJoin.DefaultIfEmpty()
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -55,7 +53,7 @@ public class ProductService
                         ProductName2 = p.ProductName2,
                         CostValue = p.CostValue,
                         SellingPrice = (decimal?)ppResult.PriceProduct,
-                        Quantity = (double?)dsResult.Quantity
+                        Quantity = (double?)dsJoin.Sum(x => x.Quantity)
                     };
 
         return await query.FirstOrDefaultAsync();
@@ -78,7 +76,6 @@ public class ProductService
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
-                    from dsResult in dsJoin.DefaultIfEmpty()
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -87,7 +84,7 @@ public class ProductService
                         ProductName2 = p.ProductName2,
                         CostValue = p.CostValue,
                         SellingPrice = (decimal?)ppResult.PriceProduct,
-                        Quantity = (double?)dsResult.Quantity
+                        Quantity = (double?)dsJoin.Sum(x => x.Quantity)
                     };
 
         return await query.ToListAsync();
