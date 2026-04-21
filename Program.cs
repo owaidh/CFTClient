@@ -144,6 +144,22 @@ app.MapGet("/api/products/search", async (string? q, ProductService service) =>
     });
 });
 
+
+app.MapPost("/api/orders", async (HttpContext context) =>
+{
+    var reader = new StreamReader(context.Request.Body);
+    var body = await reader.ReadToEndAsync();
+    Console.WriteLine($"\n📦 [API] استلام طلب شراء جديد:\n{body}");
+    
+    var orderId = "ORD-" + Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper();
+    return Results.Ok(new 
+    { 
+        success = true, 
+        orderId = orderId, 
+        message = "تم استلام الطلب وتأكيده في نظام المورد (محاكاة)" 
+    });
+});
+
 // Health check endpoint (no auth required)
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
 
