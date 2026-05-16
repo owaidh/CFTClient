@@ -41,7 +41,8 @@ public class ProductService
     /// </summary>
     public async Task<ProductDto?> GetProductByCodeAsync(string code)
     {
-        var query = from p in _context.Products.Where(p => p.ProductCode == code)
+        var normalizedCode = code.Replace("-", "").Replace(" ", "");
+        var query = from p in _context.Products.Where(p => p.ProductCode != null && p.ProductCode.Replace("-", "").Replace(" ", "") == normalizedCode)
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
@@ -68,9 +69,10 @@ public class ProductService
             return new List<ProductDto>();
 
         var lowerQuery = queryText.ToLower();
+        var normalizedQuery = queryText.Replace("-", "").Replace(" ", "").ToLower();
         
         var query = from p in _context.Products
-                    where (p.ProductCode != null && p.ProductCode.ToLower().Contains(lowerQuery)) 
+                    where (p.ProductCode != null && p.ProductCode.Replace("-", "").Replace(" ", "").ToLower().Contains(normalizedQuery)) 
                        || (p.ProductName1 != null && p.ProductName1.ToLower().Contains(lowerQuery))
                        || (p.ProductName2 != null && p.ProductName2.ToLower().Contains(lowerQuery))
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
