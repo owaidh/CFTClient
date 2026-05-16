@@ -22,6 +22,7 @@ public class ProductService
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
+                    where dsJoin.Sum(x => x.Quantity) > 0
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -46,6 +47,7 @@ public class ProductService
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
+                    where dsJoin.Sum(x => x.Quantity) > 0
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
@@ -78,6 +80,7 @@ public class ProductService
                     join pp in _context.ProductPrices on p.ProductId equals pp.PriceProductId into ppJoin
                     from ppResult in ppJoin.DefaultIfEmpty()
                     join ds in _context.DataStocks on p.ProductId equals ds.IdProduct into dsJoin
+                    where dsJoin.Sum(x => x.Quantity) > 0
                     select new ProductDto
                     {
                         ProductId = p.ProductId,
