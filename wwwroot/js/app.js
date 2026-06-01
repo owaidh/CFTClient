@@ -2,26 +2,11 @@
 
 const API_BASE = '/api';
 
-// Toggle API Key visibility
-function toggleApiKeyVisibility() {
-    const apiKeyInput = document.getElementById('apiKey');
-    const eyeIcon = document.getElementById('eyeIcon');
-
-    if (apiKeyInput.type === 'password') {
-        apiKeyInput.type = 'text';
-        eyeIcon.classList.remove('bi-eye');
-        eyeIcon.classList.add('bi-eye-slash');
-    } else {
-        apiKeyInput.type = 'password';
-        eyeIcon.classList.remove('bi-eye-slash');
-        eyeIcon.classList.add('bi-eye');
-    }
-}
-
-// Get API Key from input
+// Get API Key — reads from localStorage/sessionStorage (set by gate.js)
 function getApiKey() {
-    return document.getElementById('apiKey').value;
+    return getStoredApiKey();
 }
+
 
 // Show loading spinner
 function showLoading() {
